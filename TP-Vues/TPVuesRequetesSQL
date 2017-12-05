@@ -1,0 +1,63 @@
+1
+
+CREATE OR REPLACE VIEW Paris13 AS SELECT * FROM UNIVERSITE
+INNER JOIN CHERCHEUR ON UNIVERSITE.idUniversite=CHERCHEUR.CidUniversite WHERE `nomUniversite`='Paris13';
+
+2
+
+SELECT * FROM Paris13;
+
+3
+
+UPDATE CHERCHEUR SET nomChercheur='Ali' WHERE nomChercheur='Pierre';
+
+4
+
+INSERT INTO Paris13 (`CidUniversite`,`idArticle`,`idChercheur`,`nomChercheur`)
+VALUES ('13','4','','Gabriel');
+
+5
+
+SELECT nomChercheur FROM Paris13;
+
+6
+
+UPDATE Paris13 SET nomChercheur='Ali' WHERE nomChercheur='Pierre';
+
+7
+
+SELECT * FROM CHERCHEUR
+
+8
+
+CREATE OR REPLACE VIEW Universites AS SELECT nomChercheur, nomUniversite, ARTICLE.idArticle FROM UNIVERSITE INNER JOIN CHERCHEUR ON UNIVERSITE.idUniversite=CHERCHEUR.CidUniversite INNER JOIN ARTICLE ON ARTICLE.idArticle=CHERCHEUR.idArticle;
+
+9
+
+SELECT * FROM `Universites`;
+
+10
+
+SELECT nomChercheur FROM `Universites` WHERE idArticle='1';
+
+11
+
+SELECT nomChercheur FROM `Universites` WHERE nomUniversite='Paris6';
+
+12
+
+SELECT nomArticle FROM Universites
+INNER JOIN ARTICLE ON ARTICLE.idArticle=Universites.idArticle
+WHERE nomUniversite='Paris6';
+
+13
+
+CREATE OR REPLACE VIEW Vue1 AS SELECT nomChercheur, nomArticle, nomUniversite FROM Universites INNER JOIN ARTICLE ON ARTICLE.idArticle=Universites.idArticle
+
+14
+
+SELECT * FROM Vue1
+
+15
+
+CREATE OR REPLACE VIEW ArticlesChercheur AS SELECT

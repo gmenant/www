@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+ </head>
+ <body>
+
+
+<form action="scripts.php" method="post" id="tva_form"
+       onsubmit="ttc.value = ht.value * (1 + tva.value/100); return false;">
+ <p> <label for="t_ht">Tarif HT</label>
+        <input type="number" name="ht" id="t_ht"> € </p>
+ <p> <label for="t_tva">TVA</label>
+        <input type="number" name="tva" id="t_tva" value="19.6"> % </p>
+ <p> Prix TTC : <output for="t_ht t_tva" name="ttc" form="tva_form"></output> €</p>
+ <input type="submit" value="Calculer">
+</form>
+
+
+
+ </body>
+ </html>
