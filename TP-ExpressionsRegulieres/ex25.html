@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<title>EX 25</title>
+<meta charset="UTF-8">
+<style type="text/css">
+<!--
+
+-->
+</style>
+<script type="text/javascript">
+<!--
+
+
+
+
+
+function testejour(){
+  var chaine = document.getElementById("saisie");
+  var chaine1 = chaine.value;
+  var regex2 = /^lundi$|^mardi$|^mercredi$|^jeudi$|^vendredi$|^samedi$|^dimanche$/i;
+
+    if((regex2.test(chaine1))){
+      saisie.style.backgroundColor = "bisque";
+      }
+    else{
+      alert("Jour incorrect : " + chaine1);
+      document.getElementById('saisie').focus();
+      }
+
+  /*
+  var jds =['^lundi$','^mardi$','^mercredi$','^jeudi$','^vendredi$','^samedi$','^dimanche$'];
+    for (var i=0 ; i < 7 ; i++)
+    {
+      var regex = new RegExp(jds[i], 'i');
+      (regex.test(chaine1)) ? saisie.style.backgroundColor = "bisque" : alert ("pas de lundi");
+    }*/
+}
+
+function efface(){
+document.getElementById('saisie').value ="";
+document.getElementById('saisie').style.backgroundColor ="white";
+document.getElementById('saisie').focus();
+}
+-->
+</script>
+
+</head>
+<body>
+<p><label for="saisie">Entrez le jour : </label>
+<input id="saisie" type="text" value="" /></p>
+<p><input id="valider" type="button" value=" Tester" onclick="testejour()" />
+<input id="effacer" type="button" value=" Effacer" onclick="efface()" /></p>
+
+
+</body>
+</html>
