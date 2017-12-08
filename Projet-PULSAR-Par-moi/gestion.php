@@ -66,7 +66,7 @@ echo '
     <tbody>
       <tr><td>Nom : </td><td><input type="text" id="nom" name="nom"  required size="30" /></td></tr>
       <tr><td>Prénom : </td><td><input type="text" id="prenom" name="prenom"  required size="30" /></td></tr>
-      <tr><td>Date de diffusion : </td><td><input type="text" id="dateDiff" name="dateDiff" required  size="35" /></td></tr>
+      <tr><td>Date de diffusion : </td><td><input type="date" id="dateDiff" name="dateDiff" required  size="35" /></td></tr>
          <tr><td><input type="button" id="valider" value="Valider" onclick="validation()" /></td>
           <td><input type="reset" id="effacer" value="Effacer" /></td>
           <td><input type="button" id="supprimer" value="Supprimer utilisateur"/><a href="suppression_utilisateurAJAX.php"></a></td>
