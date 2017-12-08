@@ -19,10 +19,17 @@ input {border:solid #AAA 1px;}
 </style>
 <script>
 var erreur=0;
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function majuscule(input) {
   input.value=input.value.toUpperCase();            // met en majuscule le champ input
   input.style.border='solid #AAA 1px';
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function premaj(input) {                            // met en majuscule le premier caractère d'un prénom
   var texte=input.value;                            // texte saisi dans un champ input
   var resultat='';                                  // résultat de la fonction
@@ -48,6 +55,10 @@ function premaj(input) {                            // met en majuscule le premi
   input.value=resultat;                             // remet le 'résultat' dans le champ input
   input.style.border='solid #AAA 1px';
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function chiffre(input) {
   var texte=input.value;                            // texte saisi dans un champ input
   var resultat='';                                  // résultat de la fonction
@@ -61,6 +72,11 @@ function chiffre(input) {
   input.value=resultat;                             // remet le 'résultat' dans le champ input
   input.style.border='solid #AAA 1px';
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 function trim(chaine) {                             // supprime les espaces en début et en fin de chaîne
   var resultat='';
@@ -86,6 +102,11 @@ function trim(chaine) {                             // supprime les espaces en d
   // console.log('-',chaine,'-',resultat,'-',i);
   return resultat;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 function aff(input) {                           // affiche les champs après avoir supprimés les espaces de début et de fin
   res=input.value;
   res=trim(res);
@@ -93,6 +114,8 @@ function aff(input) {                           // affiche les champs après avo
   input.style.border='solid #AAA 1px';
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function validation () {                        // contrôle les champs du formulaire avant d'envoyer les données au serveur
   var champ,debmess;
@@ -167,7 +190,8 @@ xhr.send('nom='+AJAXnom+'&prenom='+AJAXprenom);
   }
 }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 function verif(input) {                       // incrémente le nombre d'erreurs si un champ obligatoire est vide
@@ -184,6 +208,58 @@ function verif(input) {                       // incrémente le nombre d'erreurs
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function suppression(){
+
+   var scriptAJAX='suppression_adherentAJAX.php';
+   var methodeAJAX ='POST';
+   var AJAXnom=encodeURIComponent(document.getElementById('nom').value);
+   var AJAXprenom=encodeURIComponent(document.getElementById('prenom').value);
+   var mess='Voulez vous supprimer l\'adherent '+AJAXprenom+' '+AJAXnom+' ?';
+   var reponse=confirm(mess);
+   if(!reponse){
+    return false;
+   }
+
+var xhr;
+   if (window.XMLHttpRequest) {
+  xhr = new XMLHttpRequest();
+   }
+   else if (window.ActiveXObject){
+  xhr = new ActiveXObject('Microsoft.XMLHTTP');
+   }
+   else {
+      alert("Votre navigateur n'est pas adapté pour faire des requêtes AJAX...");
+      xhr = false;
+}
+
+xhr.open(methodeAJAX,scriptAJAX,true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200){
+  document.getElementById('zone_dialogue').innerHTML = xhr.responseText;
+  var rep=xhr.responseText;
+
+  var retour=rep.substr(0,6);
+  if(retour=='Erreur')
+  {
+   document.getElementById('zone_dialogue').innerHTML = rep;
+   document.getElementById('nom').focus();
+   document.getElementById('nom').style.color='tomato';
+  }
+  else{
+
+    document.getElementById('supprimer').disabled = true;
+    document.getElementById('zone_dialogue').style.color='darkblue';
+    document.getElementById('zone_dialogue').innerHTML = "L'adhérent "+AJAXprenom+" "+AJAXnom+" a été supprimé";
+      }
+    }
+  }
+
+xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+xhr.send('nom='+AJAXnom+'&prenom='+AJAXprenom);
+
+
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -206,20 +282,8 @@ var methodeAJAX ='POST';
 var AJAXnom=encodeURIComponent(document.getElementById('nom').value);
 var AJAXprenom=encodeURIComponent(document.getElementById('prenom').value);
 console.log(AJAXnom,AJAXprenom);
-/*var AJAXadresse1=encodeURIComponent(document.getElementById('adresse1').value);
-var AJAXadresse2=encodeURIComponent(document.getElementById('adresse2').value);
-var AJAXcp=encodeURIComponent(document.getElementById('cp').value);
-var AJAXville=encodeURIComponent(document.getElementById('ville').value);
-var AJAXtel_dom=encodeURIComponent(document.getElementById('tel_dom').value);
-var AJAXsection=encodeURIComponent(document.getElementById('section').value);
-var AJAXsexe="F";
-if(document.getElementsByName('sexe')[0].checked){var AJAXsexe="M"}
 
 
-var AJAXmethode='POST';
-var AJAXscript='ajout_adherentAJAX.php';
-var reponse="";
-*/
 var xhr;
    if (window.XMLHttpRequest) {
   xhr = new XMLHttpRequest();
@@ -231,12 +295,36 @@ var xhr;
       alert("Votre navigateur n'est pas adapté pour faire des requêtes AJAX...");
       xhr = false;
    }
+
 xhr.open(methodeAJAX,scriptAJAX,true);
 xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200){
   document.getElementById('zone_dialogue').innerHTML = xhr.responseText;
+  var rep=xhr.responseText;
+
+  var retour=rep.substr(0,6);
+  if(retour=='Erreur')
+  {
+   document.getElementById('zone_dialogue').innerHTML = rep;
+   document.getElementById('nom').focus();
+   document.getElementById('nom').style.color='tomato';
+  }
+  else{
+    var donnees = rep.split('|');
+    document.getElementById('adresse1').innerHTML = donnees[2];
+    document.getElementById('adresse2').innerHTML = donnees[3];
+    document.getElementById('cp').innerHTML = donnees[4];
+    document.getElementById('ville').innerHTML = donnees[5];
+    document.getElementById('section').innerHTML = donnees[6];
+    document.getElementById('tel_dom').innerHTML = donnees[7];
+    document.getElementById('sexe').innerHTML = donnees[8];
+    document.getElementById('supprimer').disabled = false;
+    document.getElementById('zone_dialogue').style.color='darkgreen';
+    document.getElementById('zone_dialogue').innerHTML = "L'adhérent "+AJAXprenom+" "+AJAXnom+" a été trouvé";
+      }
     }
-}
+  }
+
 xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
 xhr.send('nom='+AJAXnom+'&prenom='+AJAXprenom);
       }
@@ -251,7 +339,7 @@ xhr.send('nom='+AJAXnom+'&prenom='+AJAXprenom);
 <form id="form_saisie" method="POST">
   <table id="tbform">
     <tbody>
-      <tr><td>Nom :         </td><td >    <input type="text" id="nom" name="nom" onInput="majuscule(this)" required size="30" /></td></tr>
+      <tr><td>Nom :         </td><td > <input type="text" id="nom" name="nom" onInput="majuscule(this)" required size="30" /></td></tr>
       <tr><td>Prénom :      </td><td > <input type="text" id="prenom" name="prenom" onInput="premaj(this)" required size="30" /></td></tr>
 
       <tr><td>&nbsp;</td><td>    <input type="button" id="rechercher" value="Rechercher" onclick="recherche()" /></td></tr>
@@ -263,12 +351,12 @@ xhr.send('nom='+AJAXnom+'&prenom='+AJAXprenom);
       <tr><td>Téléphone :   </td><td id="tel_dom">    </td></tr>
       <tr><td>Section :     </td><td id="section">    </td></tr>
       <tr><td>Sexe :        </td><td id="sexe">       </td></tr>
-      <tr>      <td><input type="button" id="supprimer" value="Supprimer" onclick="supprimer()" /></td>
-                <td><input type="reset" id="effacer" value="Effacer" /></td>
+      <tr>      <td><input type="button" id="supprimer" value="Supprimer" onclick="suppression()" disabled /></td>
+                <td><input type="reset" id="effacer" value="Effacer " /></td>
 
         </tr>
       <tr><td id="zone_dialogue" class="message" colspan="2">&nbsp;</td></tr>
-      <a href="suppression_utilisateurAJAX2.php">Supprimer utilisateur</a>
+
 
     </tbody>
   </table>
