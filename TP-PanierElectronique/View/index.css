@@ -1,6 +1,23 @@
 
 *{margin:0;padding:0;}
 li{list-style: none;}
+
+#ulVueRechercher li{
+  color:red;
+ list-style: square;
+}
+
+#flash
+{
+  width:1000px;
+  background-color: red;
+  padding:20px;
+  color:red;
+}
+#ulVueRechercher{
+  color:red;
+}
+
 a{
  text-decoration: none;
  color:white;
