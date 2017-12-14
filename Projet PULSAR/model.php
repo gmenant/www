@@ -53,7 +53,7 @@ $champ = '<div class="chron">	Nom du Chroniqueur<textarea>En attente du titre de
 		echo '</tr><tr>';
 	for($i = 0 ; $i < 7 ; $i++)
 		{
-			echo '<td class="contenuJours"><input type="button" value="entrer le titre de ma chronique"></td>';
+			echo '<td class="contenuJours"><input type="button" value="chronique"></td>';
 		}
 	echo '</table>';
 	}
