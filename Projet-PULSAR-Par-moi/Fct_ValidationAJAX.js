@@ -10,26 +10,6 @@ function validation () {                        // contrôle les champs du formu
   obj=document.getElementById('dateDiff');
   verif(obj);
 
-  /*
-  champ=obj.value;
-  if (champ.length!=5) {errcp='Le code postal doit contenir 5 chiffres.\n';}
-  console.log('***** '+erreur);
-  if (erreur>0) {                             // il y a au moins 1 champ non rempli
-    if (erreur==1) {debmess='Un champ obligatoire n\'est pas rempli.\n';}
-    else {debmess=erreur + ' champs obligatoires ne sont pas remplis.\n';}
-    mess=errcp + debmess + mess;
-    alert(mess);
-  }
-  else {
-    if (errcp.length>0) {                     // le code postal ne contient pas 5 chiffres
-      mess=errcp +  mess;
-      alert(mess);
-    }
-    else {
-      form_saisie.submit();
-//Fonction AJAX appelant le serveur
-*/
-//form_saisie.submit();
 
 var AJAXnom=encodeURIComponent(document.getElementById('nom').value);
 var AJAXprenom=encodeURIComponent(document.getElementById('prenom').value);
